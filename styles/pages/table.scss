@@ -1,0 +1,113 @@
+@use "../abstracts/" as *;
+
+.content-table thead tr {
+    background-color: $color-primary;
+    color: $color-secondary;
+    text-align: left;
+    font-weight: bold;
+    }
+  
+    .content-table th,
+    .content-table td {
+    padding: 12px 15px;
+    }
+  
+    .content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+    }
+  
+    .content-table tbody tr:nth-of-type(odd) {
+        background-color: $color-secondary;
+        }
+
+    .content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+    }
+  
+    .content-table tbody tr:last-of-type {
+    border-bottom: 2px solid $color-primary;
+    }
+  
+    .content-table tbody tr.active-row {
+    font-weight: bold;
+    color: $color-primary;
+    }
+
+  
+    table {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-collapse: collapse;
+        width: 800px;
+        height: 200px;
+        border: 1px solid #bdc3c7;
+        box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
+    }
+  
+    th,
+    td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+  
+    tr {
+        transition: all .2s ease-in;
+        cursor: pointer;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+        transform: scale(1.02);
+        box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2);
+    }
+  
+    @media only screen and (max-width: 768px) {
+        table {
+            width: 90%;
+        }
+    }
+
+    #table {
+        animation: table-fly-in 4s ease-in-out 0s 1 both,
+            table-turbulences 2s ease-in-out 4.1s none;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        
+    }
+
+    @keyframes table-fly-in {
+        0% {
+            transform: translate(-80vw, 0 );
+        }
+        50% {
+            transform: translate(50vw, 0);
+        }
+        100% {
+            transform: translate(0vw, 0);
+        }
+    }   
+
+    @keyframes table-turbulences {
+        0%, 100% {
+            transform: translate(0, 0);
+        }
+        25% {
+            transform: translate(0, -70px);
+        }
+        50% {
+            transform: translate(0, 70px);
+        }
+        75% {
+            transform: translate(0, 3px) scale(1.025);
+        }
+    }
+    
+ 
+
+    
+    
