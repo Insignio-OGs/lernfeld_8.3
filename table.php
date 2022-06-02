@@ -32,12 +32,14 @@
             <button onclick=\"location.href='table.php?table_name=joined_rental'\" type='button' > Verleih </button>
             </div>";
 
-        if(isset($_GET['table_name']) && $_GET['table_name'] == "joined_cars"){
-            echo 
-            "<div>
-            <button onclick=\"location.href='table.php?table_name=only_available'\" type='button' > Nur Verfügbare Fahrzeuge </button>
-            <button onclick=\"location.href='table.php?table_name=only_rented'\" type='button' > Nur Ausgeliehene Fahrzeuge </button>
-            </div>";
+        if(isset($_GET['table_name'])){
+            if($_GET['table_name'] == "joined_cars" || $_GET['table_name'] == 'only_available' || $_GET['table_name'] == 'only_rented') {
+                echo 
+                "<div>
+                <button onclick=\"location.href='table.php?table_name=only_available'\" type='button' > Nur Verfügbare Fahrzeuge </button>
+                <button onclick=\"location.href='table.php?table_name=only_rented'\" type='button' > Nur Ausgeliehene Fahrzeuge </button>
+                </div>";
+            }
         }    
     
     ?>

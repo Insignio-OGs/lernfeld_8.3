@@ -264,7 +264,13 @@
                 $sort = " ORDER BY " . $_GET["sort"] . " " . $_GET["direction"];
             }
             if($_GET['table_name'] == 'only_available') {
-                $sql = '';
+                $sql = 'SELECT brand.brand, model.model, rental.`status`,cars.license_plate, cars.construction_year, cars.mileage, cars.hp, cars.ccm, cars.seats, cars.asu, cars.extra, cars.extra2, cars.extra3, cars.`tüv`, cars.pricing_id, cars.insurance_number, fuel.fuelname
+                FROM cars
+                LEFT JOIN model ON cars.model_id=model.id
+                LEFT JOIN brand ON model.brand_id=brand.id
+                LEFT JOIN fuel ON cars.fuel_id=fuel.id
+                LEFT JOIN rental ON cars.id=rental.car_id
+                WHERE rental.`status` IS NOT 1';
             } elseif($_GET['table_name'] == 'only_rented') {
                 $sql = '';
             } else {
