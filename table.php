@@ -46,7 +46,7 @@
     <?php
         if (isset($_GET['table_name'])) {
             $dbHandler = new DbHandler($_GET['table_name'], 'lernfeld_8_3');
-            $dbHandler->showTable($_GET['table_name'],"tableRaw.php");
+            $dbHandler->showTable($_GET['table_name'],"table.php");
         }
     ?>
 </div>

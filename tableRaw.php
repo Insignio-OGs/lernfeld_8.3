@@ -29,7 +29,7 @@
         echo "<div>";
         foreach($table_names as $name => $count){
             echo "
-            <button onclick=\"location.href='table.php?table_name=".$name."'\" type='button' > $name </button>
+            <button onclick=\"location.href='tableRaw.php?table_name=".$name."'\" type='button' > $name </button>
             ";
         }
         echo "</div>";
