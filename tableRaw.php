@@ -24,20 +24,15 @@
         $con = mysqli_connect("", "root", "", 'lernfeld_8_3') or die("verbindung fehlgeschlagen");
         $table_names = get_table_names($con);
     
-        echo "
-            <div>
-            <button onclick=\"location.href='table.php?table_name=joined_cars'\" type='button' > Fahrzeuge </button>
-            <button onclick=\"location.href='table.php?table_name=joined_customers'\" type='button' > Kunden </button>
-            <button onclick=\"location.href='table.php?table_name=joined_rental'\" type='button' > Verleih </button>
-            </div>";
-
-        if(isset($_GET['table_name']) && $_GET['table_name'] == "joined_cars"){
-            echo 
-            "<div>
-            <button onclick=\"location.href='table.php?table_name=only_available'\" type='button' > Nur Verfügbare Fahrzeuge </button>
-            <button onclick=\"location.href='table.php?table_name=only_rented'\" type='button' > Nur Ausgeliehene Fahrzeuge </button>
-            </div>";
-        }    
+    
+        echo "<div>";
+        foreach($table_names as $name => $count){
+            echo "
+            <button onclick=\"location.href='table.php?table_name=".$name."'\" type='button' > $name </button>
+            ";
+        }
+        echo "</div>";
+    
     
     ?>
 
@@ -46,6 +41,7 @@
         if (isset($_GET['table_name'])) {
             $dbHandler = new DbHandler($_GET['table_name'], 'lernfeld_8_3');
             $dbHandler->showTable($_GET['table_name'],"tableRaw.php");
+            
         }
     ?>
 </div>
