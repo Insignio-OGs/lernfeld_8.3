@@ -161,12 +161,12 @@
                     echo "<script>
                             var confirm = confirm('Datensatz wirklich löschen?');
                             if(confirm) {
-                                window.location.href = '" . $file . "?tab_name=" . $this->tablename . "&key=" . $_GET["key"] . "&deleted=deleted';
+                                window.location.href = '" . $file . "?table_name=" . $this->tablename . "&key=" . $_GET["key"] . "&deleted=deleted';
                                 
                             }
                             else {
                                 alert('Datensatz wurde NICHT gelöscht!');
-                                window.location.href = '" . $file . "?tab_name=" . $this->tablename . "';
+                                window.location.href = '" . $file . "?table_name=" . $this->tablename . "';
                             }
                         </script>";
                 }
@@ -181,7 +181,7 @@
                     else {
                         echo "<script>alert('Datensatz wurde NICHT gelöscht!');</script>";
                     }
-                    echo "<script>window.location.href = '" . $file . "?tab_name=" . $this->tablename . "'</script>";
+                    echo "<script>window.location.href = '" . $file . "?table_name=" . $this->tablename . "'</script>";
                 }
             }
 
@@ -213,7 +213,7 @@
                 else {
                     echo "<script>alert('Eintrag wurde NICHT geändert!')</script>";
                 }
-                echo "<script>window.location.href = '" . $file . "?tab_name=" . $this->tablename . "'</script>";
+                echo "<script>window.location.href = '" . $file . "?table_name=" . $this->tablename . "'</script>";
             }
 
             echo "<style>
@@ -227,10 +227,10 @@
                 if($name == $this->get_primarykey()) {
                     $string = "test";
                     $arr_getsort = $this->get_sort();
-                    echo "<td style='cursor: help;' title='Primary Key'><b>" . $arr_getsort["arrow"] . "</b>&nbsp;&nbsp;<a href='" . $file . "?sort=" . $name . "&direction=" . $arr_getsort["direction"] . "'><b>" . $name . "</b></a> &#x1F511;</td>";
+                    echo "<td style='cursor: help;' title='Primary Key'><b>" . $arr_getsort["arrow"] . "</b>&nbsp;&nbsp;<a href='" . $file . "?table_name=" . $_GET['table_name'] . "&sort=" . $name . "&direction=" . $arr_getsort["direction"] . "'><b>" . $name . "</b></a> &#x1F511;</td>";
                 }
                 else {
-                    echo "<td><b>" . $arr_getsort["arrow"] . "</b>&nbsp;&nbsp;<a href='" . $file . "?sort=" . $name . "&direction=" . $arr_getsort["direction"] . "'<b>" . $name . "</b></a></td>";
+                    echo "<td><b>" . $arr_getsort["arrow"] . "</b>&nbsp;&nbsp;<a href='" . $file . "?table_name=" . $_GET['table_name'] . "&sort=" . $name . "&direction=" . $arr_getsort["direction"] . "'<b>" . $name . "</b></a></td>";
                 }
             }
             echo "<td colspan='2'><b>Optionen</b></td>";
@@ -257,7 +257,7 @@
             else {
                 echo "<input type='hidden' name='ai' value='true'>";
             }
-            echo "<input type='hidden' name='tab_name' value='" . $this->tablename . "'>";
+            echo "<input type='hidden' name='table_name' value='" . $this->tablename . "'>";
             echo "</form>";
             echo "</tr>";
             if(isset($_GET["sort"]) && isset($_GET["direction"])) {
@@ -281,8 +281,8 @@
                         echo "<td>" . $record[$name] . "</td>";
                     }
                 }
-                echo "<td><a href='" . $file . "?update=true&key=" . $record[$this->get_primarykey()] . "&tab_name=" . $this->tablename . "'>Bearbeiten</a></td>";
-                echo "<td><a href='" . $file . "?delete=true&key=" . $record[$this->get_primarykey()] . "&tab_name=" . $this->tablename . "'>Löschen</a></td>";
+                echo "<td><a href='" . $file . "?update=true&key=" . $record[$this->get_primarykey()] . "&table_name=" . $this->tablename . "'>Bearbeiten</a></td>";
+                echo "<td><a href='" . $file . "?delete=true&key=" . $record[$this->get_primarykey()] . "&table_name=" . $this->tablename . "'>Löschen</a></td>";
                 echo "</tr>";
             }
             echo "</table>";
@@ -306,9 +306,9 @@
                 }
                 echo "<input type='submit' name='updated' value='Speichern'>";
                 echo "<input type='hidden' name='key' value='" . $_GET["key"] . "'>";
-                echo "<input type='hidden' name='tab_name' value='" . $_GET["tab_name"] . "'>";
+                echo "<input type='hidden' name='table_name' value='" . $_GET["table_name"] . "'>";
                 echo "</form>";
-                echo "&nbsp;&nbsp;<a href='" . $file . "?tab_name=" . $_GET["tab_name"] . "''>Abbrechen</a>&nbsp;&nbsp;";
+                echo "&nbsp;&nbsp;<a href='" . $file . "?table_name=" . $_GET["table_name"] . "''>Abbrechen</a>&nbsp;&nbsp;";
             }
             
             if(isset($_GET["delete"])) {
@@ -324,9 +324,9 @@
                 }
                 echo "<input type='submit' name='deleted' value='LÖSCHEN'>";
                 echo "<input type='hidden' name='key' value='" . $_GET["key"] . "'>";
-                echo "<input type='hidden' name='tab_name' value='" . $_GET["tab_name"] . "'>";
+                echo "<input type='hidden' name='table_name' value='" . $_GET["table_name"] . "'>";
                 echo "</form>";
-                echo "&nbsp;&nbsp;<a href='" . $file . "?tab_name=" . $_GET["tab_name"] . "''>Abbrechen</a>&nbsp;&nbsp;";
+                echo "&nbsp;&nbsp;<a href='" . $file . "?table_name=" . $_GET["table_name"] . "''>Abbrechen</a>&nbsp;&nbsp;";
             }
 
             if(isset($_GET["insert"]) && $_GET["insert"] != "Einfügen") {
@@ -344,10 +344,10 @@
                     echo "<label><b> " . $name . "</b></label><br><br>";
                 }
                 echo "<input type='submit' name='insert' value='Einfügen'>";
-                echo "<input type='hidden' name='tab_name' value='" . $_GET["tab_name"] . "'>";
+                echo "<input type='hidden' name='table_name' value='" . $_GET["table_name"] . "'>";
                 echo "<input type='hidden' name='ai' value='" . $_GET["ai"] . "'>";
                 echo "</form>";
-                echo "&nbsp;&nbsp;<a href='" . $file . "?tab_name=" . $_GET["tab_name"] . "''>Abbrechen</a>&nbsp;&nbsp;";
+                echo "&nbsp;&nbsp;<a href='" . $file . "?table_name=" . $_GET["table_name"] . "''>Abbrechen</a>&nbsp;&nbsp;";
             }
         }
 
@@ -359,9 +359,9 @@
         * @return string
         */
         function get_inputtype($column_name) {
-            $tab_name = $this->tablename;
+            $table_name = $this->tablename;
             $con = $this->con;
-            $res = mysqli_query($con, "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '" . $tab_name . "' AND COLUMN_NAME = '" . $column_name . "'");
+            $res = mysqli_query($con, "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '" . $table_name . "' AND COLUMN_NAME = '" . $column_name . "'");
             $cRow = mysqli_fetch_assoc($res);
             $type = $cRow["DATA_TYPE"];
             if($type == "varchar" || $type == "text" || $type == "timestamp" || $type == "char" || $type == "binarys"){
