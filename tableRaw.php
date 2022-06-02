@@ -2,11 +2,13 @@
 <html>
 <head>
   <meta charset = "utf-8">
+  <link href="./dist/main.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-
+<header>
+    <a class="logo" href="/"><img src="insignio.png" alt="logo"></a>
     <nav>
-        <ul>
+        <ul class="nav__links">
             <li><a href="index.php">Home</a></li>
             <li><a href="table.php">Tabellen</a></li>
             <li><a href="tableRaw.php">Rohe Datenbank Tabellen</a></li>
@@ -14,10 +16,8 @@
             <li><a href="csv.php">CSV</a></li>
         </ul>
     </nav>
-
-<div>
-    <h1>TABLE</h1>
-</div>
+</header>
+<br>
 
     <?php
         include('dbHandler.php');
@@ -29,7 +29,7 @@
         echo "<div>";
         foreach($table_names as $name => $count){
             echo "
-            <button onclick=\"location.href='tableRaw.php?table_name=".$name."'\" type='button' > $name </button>
+            <button onclick=\"location.href='tableRaw.php?table_name=".$name."'\" type='button' class='button button-2'> $name </button>
             ";
         }
         echo "</div>";

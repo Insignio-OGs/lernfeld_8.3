@@ -58,7 +58,7 @@
             $record_count = mysqli_num_rows(mysqli_query($con, "SELECT * FROM " . $cRow[0]));
             if($tab_name != "user") {
                 echo "<p>
-                <table style='cursor: pointer;'>
+                <table class='content-table' style='cursor: pointer;'>
                     <tr>
                         <td>
                             Tabelle <b>" . $tab_name . "</b>

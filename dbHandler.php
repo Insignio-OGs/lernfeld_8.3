@@ -221,7 +221,7 @@
                         border: 1px solid black;
                     }
                 </style>";
-            echo "<table><tr>";
+            echo "<table class='content-table'><thead><tr>";
             $sort = " ORDER BY " . $this->get_primarykey() . " ASC";
             foreach($column_names as $name){
                 if($name == $this->get_primarykey()) {
@@ -234,7 +234,7 @@
                 }
             }
             echo "<td colspan='2'><b>Optionen</b></td>";
-            echo "</tr><tr>";
+            echo "</thead></tr><tr>";
             echo "<form action='" . $file . "' method='GET'>";
             foreach($column_names as $name){
                 if($name == $this->get_primarykey()) {
@@ -250,7 +250,7 @@
                 }
                 
             }
-            echo "<td colspan='2'><input type='submit' name='insert' value='Eintrag hinzufügen'></td>";
+            echo "<td colspan='2'><input type='submit' name='insert' value='Eintrag hinzufügen' class='button button-2'></td>";
             if($this->is_ai()) {
                 echo "<input type='hidden' name='ai' value='true'>";
             }
