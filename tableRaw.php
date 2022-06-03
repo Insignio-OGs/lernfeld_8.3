@@ -27,9 +27,11 @@
     
         echo "<div>";
         foreach($table_names as $name => $count){
-            echo "
-            <button onclick=\"location.href='tableRaw.php?table_name=".$name."'\" type='button' class='button button-2' id='buttonM'> $name </button>
-            ";
+            if($name != 'joined_cars' && $name != 'only_available' &&  $name  != 'only_rented' &&  $name  != 'joined_customers' &&  $name  != 'joined_rental') {
+                echo "
+                <button onclick=\"location.href='tableRaw.php?table_name=".$name."'\" type='button' class='button button-2' id='buttonM'> $name </button>
+                ";
+            }
         }
         echo "</div>";
     

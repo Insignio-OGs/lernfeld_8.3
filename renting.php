@@ -24,9 +24,7 @@
     ";
     if(isset($_GET['return'])) {
         $con = mysqli_connect("", "root", "", 'lernfeld_8_3') or die("verbindung fehlgeschlagen");
-        $sql = 'UPDATE cars SET customer_id = NULL WHERE id = ' . $_GET['return'];
-        $res = mysqli_query($con, $sql);
-        $sql = 'DELETE FROM rental WHERE car_id = ' . $_GET['return'];
+        $sql = 'UPDATE rental SET status = 0 WHERE customer_id = ' . $_GET['return'];
         $res = mysqli_query($con, $sql);
         echo "<script>alert('Fahrzeug wurde zurückgegeben.');</script>";
         echo "<script>window.location.href = 'renting.php?action=return'</script>";
@@ -34,7 +32,7 @@
     if(isset($_GET['action'])) {
         if($_GET['action'] == 'return') {
             $con = mysqli_connect("", "root", "", 'lernfeld_8_3') or die("verbindung fehlgeschlagen");
-            $sql = 'SELECT id, first_name, last_name FROM customer';
+            $sql = 'SELECT customer.id, customer.first_name, customer.last_name, rental.customer_id FROM customer LEFT JOIN rental ON customer.id = rental.customer_id WHERE rental.status = 1 GROUP BY rental.customer_id HAVING COUNT(rental.customer_id) > 0 ';
             $res = mysqli_query($con, $sql);
             while($record = mysqli_fetch_assoc($res)){
                 $sql = 'SELECT brand.brand, model.model, cars.license_plate, cars.id, rental.start_date, rental.end_date
@@ -42,7 +40,7 @@
                 LEFT JOIN model ON cars.model_id=model.id
                 LEFT JOIN brand ON model.brand_id=brand.id
                 LEFT JOIN rental ON cars.id=rental.car_id
-                WHERE cars.customer_id = ' . $record['id'];
+                WHERE rental.customer_id = ' . $record['id'];
                 $res2 = mysqli_query($con, $sql);
                 echo '<h4>' . $record['first_name'] . ' ' . $record['last_name'] . '</h4><br>';
                 echo '<table>
@@ -72,10 +70,11 @@
                 FROM cars
                 LEFT JOIN model ON cars.model_id=model.id
                 LEFT JOIN brand ON model.brand_id=brand.id
-                WHERE cars.customer_id IS NULL';
-                echo $sql;
+                LEFT JOIN rental ON rental.car_id=cars.id
+                WHERE rental.status = 0 OR rental.status IS null';
             $res = mysqli_query($con, $sql);
             while($record = mysqli_fetch_assoc($res)){
+
                 echo '<option value="' . $record['id'] . '">' . $record['brand'] . ' ' . $record['model'] . ' | ' . $record['license_plate'] . '</option>';
             }
             echo '</select><br>';
