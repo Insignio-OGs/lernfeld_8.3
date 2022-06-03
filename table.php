@@ -20,6 +20,7 @@
 <br>
 
     <?php
+        error_reporting(E_ERROR | E_PARSE);
         include('dbHandler.php');
         include('functions.php');
         $con = mysqli_connect("", "root", "", 'lernfeld_8_3') or die("verbindung fehlgeschlagen");
@@ -27,17 +28,17 @@
     
         echo "
             <div>
-            <button onclick=\"location.href='table.php?table_name=joined_cars'\" type='button' class='button button-2'> Fahrzeuge </button>
-            <button onclick=\"location.href='table.php?table_name=joined_customers'\" type='button' class='button button-2'> Kunden </button>
-            <button onclick=\"location.href='table.php?table_name=joined_rental'\" type='button' class='button button-2'> Verleih </button>
+            <button onclick=\"location.href='table.php?table_name=joined_cars&sort=brand&direction=DESC'\" type='button' class='button button-2'> Fahrzeuge </button>
+            <button onclick=\"location.href='table.php?table_name=joined_customers&sort=title&direction=DESC'\" type='button' class='button button-2'> Kunden </button>
+            <button onclick=\"location.href='table.php?table_name=joined_rental&sort=status&direction=DESC'\" type='button' class='button button-2'> Verleih </button>
             </div>";
 
         if(isset($_GET['table_name'])){
             if($_GET['table_name'] == "joined_cars" || $_GET['table_name'] == 'only_available' || $_GET['table_name'] == 'only_rented') {
                 echo 
                 "<div>
-                <button onclick=\"location.href='table.php?table_name=only_available'\" type='button' class='button button-2'> Nur Verfügbare Fahrzeuge </button>
-                <button onclick=\"location.href='table.php?table_name=only_rented'\" type='button' class='button button-2'> Nur Ausgeliehene Fahrzeuge </button>
+                <button onclick=\"location.href='table.php?table_name=only_available&sort=brand&direction=DESC'\" type='button' class='button button-2'> Nur Verfügbare Fahrzeuge </button>
+                <button onclick=\"location.href='table.php?table_name=only_rented&sort=brand&direction=DESC'\" type='button' class='button button-2'> Nur Ausgeliehene Fahrzeuge </button>
                 </div>";
             }
         }    

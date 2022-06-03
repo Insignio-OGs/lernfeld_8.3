@@ -124,96 +124,98 @@
          */
         function showTable($extra = "", $file = "#") {
             $column_names = $this->get_column_names();
-
-            if(isset($_GET["insert"])) {
-                $sql = "INSERT INTO " . $this->tablename . " (";
-                $sql_values = "( '";
-                foreach($column_names as $name) {
-                    $sql .= $name . ", ";
-                    if($_GET["ai"] && $this->get_primarykey() == $name) {
-                        $sql_values .= "', '";
+            if($_GET['table_name'] != 'joined_cars' && $_GET['table_name'] != 'only_available' && $_GET['table_name'] != 'only_rented' && $_GET['table_name'] != 'joined_customers' && $_GET['table_name'] != 'joined_rental') {
+                if(isset($_GET["insert"])) {
+                    $sql = "INSERT INTO " . $this->tablename . " (";
+                    $sql_values = "( '";
+                    foreach($column_names as $name) {
+                        $sql .= $name . ", ";
+                        if($_GET["ai"] && $this->get_primarykey() == $name) {
+                            $sql_values .= "', '";
+                        }
+                        else {
+                            $sql_values .= $_GET[$name] . "', '";
+                        }
+                    }
+                    $sql .= ") VALUES";
+                    $sql_values .= ")";
+                    // Alles nach dem letzten Kommas des SQL Befehls in die Temp Varriable schreiben
+                    $temp_string = strrchr($sql, ",");
+                    $temp_string_values = strrchr($sql_values, ",");
+    
+                    // Zuerst das "," im Tmp String mit "" austauschen
+                    // dann den alten Tmp String mit dem Komma gegen den ohne Komma austauschen
+                    $sql = str_replace($temp_string, str_replace(",", "", $temp_string), $sql);
+                    $sql_values = str_replace($temp_string_values, str_replace(",", "", $temp_string_values), $sql_values);
+    
+                    $temp_string_values = strrchr($sql_values, "'");
+                    $sql_values = str_replace($temp_string_values, str_replace("'", "", $temp_string_values), $sql_values);
+                    $sql .= " " . $sql_values;
+                    if($res = mysqli_query($this->con, $sql)) {
+                        echo "<script>alert('Eintrag wurde hinzugefügt')</script>";
+                    }
+                }
+    
+                if(isset($_GET["deleted"])) {
+                    if($_GET["deleted"] == "LÖSCHEN") {
+                        echo "<script>
+                                var confirm = confirm('Datensatz wirklich löschen?');
+                                if(confirm) {
+                                    window.location.href = '" . $file . "?table_name=" . $this->tablename . "&key=" . $_GET["key"] . "&deleted=deleted';
+                                    
+                                }
+                                else {
+                                    alert('Datensatz wurde NICHT gelöscht!');
+                                    window.location.href = '" . $file . "?table_name=" . $this->tablename . "';
+                                }
+                            </script>";
                     }
                     else {
-                        $sql_values .= $_GET[$name] . "', '";
+                        // SQL String zusammen bauen
+                        $sql = "DELETE FROM " . $this->tablename . " WHERE " . $this->get_primarykey() . "=" . $_GET["key"];
+                        echo $sql;
+                        // SQL result
+                        if($res = mysqli_query($this->con, $sql)) {
+                            echo "<script>alert('Datensatz wurde gelöscht!');</script>";
+                        }
+                        else {
+                            echo "<script>alert('Datensatz wurde NICHT gelöscht!');</script>";
+                        }
+                        echo "<script>window.location.href = '" . $file . "?table_name=" . $this->tablename . "'</script>";
                     }
                 }
-                $sql .= ") VALUES";
-                $sql_values .= ")";
-                // Alles nach dem letzten Kommas des SQL Befehls in die Temp Varriable schreiben
-                $temp_string = strrchr($sql, ",");
-                $temp_string_values = strrchr($sql_values, ",");
-
-                // Zuerst das "," im Tmp String mit "" austauschen
-                // dann den alten Tmp String mit dem Komma gegen den ohne Komma austauschen
-                $sql = str_replace($temp_string, str_replace(",", "", $temp_string), $sql);
-                $sql_values = str_replace($temp_string_values, str_replace(",", "", $temp_string_values), $sql_values);
-
-                $temp_string_values = strrchr($sql_values, "'");
-                $sql_values = str_replace($temp_string_values, str_replace("'", "", $temp_string_values), $sql_values);
-                $sql .= " " . $sql_values;
-                if($res = mysqli_query($this->con, $sql)) {
-                    echo "<script>alert('Eintrag wurde hinzugefügt')</script>";
-                }
-            }
-
-            if(isset($_GET["deleted"])) {
-                if($_GET["deleted"] == "LÖSCHEN") {
-                    echo "<script>
-                            var confirm = confirm('Datensatz wirklich löschen?');
-                            if(confirm) {
-                                window.location.href = '" . $file . "?table_name=" . $this->tablename . "&key=" . $_GET["key"] . "&deleted=deleted';
-                                
-                            }
-                            else {
-                                alert('Datensatz wurde NICHT gelöscht!');
-                                window.location.href = '" . $file . "?table_name=" . $this->tablename . "';
-                            }
-                        </script>";
-                }
-                else {
+    
+                if(isset($_GET["updated"])) {
                     // SQL String zusammen bauen
-                    $sql = "DELETE FROM " . $this->tablename . " WHERE " . $this->get_primarykey() . "=" . $_GET["key"];
+                    $sql = "UPDATE " . $this->tablename . " SET ";
+                    foreach ($column_names as $name) {
+                        if($name == "password") {
+                            $sql .= $name . "='" . password_hash($_GET[$name], PASSWORD_DEFAULT) . "', ";
+                        }
+                        else {
+                            $sql .= $name . "='" . $_GET[$name] . "', ";
+                        }
+                        
+                    }
+                    $sql .= " WHERE " . $primary_key . "='" . $_GET[$primary_key] . "'";
+    
+                    // Alles nach dem letzten Kommas des SQL Befehls in die Temp Varriable schreiben
+                    $temp_string = strrchr($sql, ",");
+    
+                    // Zuerst das "," im Tmp String mit "" austauschen
+                    // dann den alten Tmp String mit dem Komma gegen den ohne Komma austauschen
+                    $sql = str_replace($temp_string, str_replace(",", "", $temp_string), $sql);
                     echo $sql;
                     // SQL result
                     if($res = mysqli_query($this->con, $sql)) {
-                        echo "<script>alert('Datensatz wurde gelöscht!');</script>";
+                        echo "<script>alert('Eintrag wurde geändert')</script>";
                     }
                     else {
-                        echo "<script>alert('Datensatz wurde NICHT gelöscht!');</script>";
+                        echo "<script>alert('Eintrag wurde NICHT geändert!')</script>";
                     }
                     echo "<script>window.location.href = '" . $file . "?table_name=" . $this->tablename . "'</script>";
                 }
-            }
-
-            if(isset($_GET["updated"])) {
-                // SQL String zusammen bauen
-                $sql = "UPDATE " . $this->tablename . " SET ";
-                foreach ($column_names as $name) {
-                    if($name == "password") {
-                        $sql .= $name . "='" . password_hash($_GET[$name], PASSWORD_DEFAULT) . "', ";
-                    }
-                    else {
-                        $sql .= $name . "='" . $_GET[$name] . "', ";
-                    }
-                    
-                }
-                $sql .= " WHERE " . $primary_key . "='" . $_GET[$primary_key] . "'";
-
-                // Alles nach dem letzten Kommas des SQL Befehls in die Temp Varriable schreiben
-                $temp_string = strrchr($sql, ",");
-
-                // Zuerst das "," im Tmp String mit "" austauschen
-                // dann den alten Tmp String mit dem Komma gegen den ohne Komma austauschen
-                $sql = str_replace($temp_string, str_replace(",", "", $temp_string), $sql);
-                echo $sql;
-                // SQL result
-                if($res = mysqli_query($this->con, $sql)) {
-                    echo "<script>alert('Eintrag wurde geändert')</script>";
-                }
-                else {
-                    echo "<script>alert('Eintrag wurde NICHT geändert!')</script>";
-                }
-                echo "<script>window.location.href = '" . $file . "?table_name=" . $this->tablename . "'</script>";
+                $sort = " ORDER BY " . $this->get_primarykey() . " ASC";
             }
 
             echo "<style>
@@ -222,8 +224,8 @@
                     }
                 </style>";
             echo "<table class='content-table'><thead><tr>";
-            $sort = " ORDER BY " . $this->get_primarykey() . " ASC";
             foreach($column_names as $name){
+                $arr_getsort = $this->get_sort();
                 if($name == $this->get_primarykey()) {
                     $string = "test";
                     $arr_getsort = $this->get_sort();
@@ -233,9 +235,12 @@
                     echo "<td><b>" . $arr_getsort["arrow"] . "</b>&nbsp;&nbsp;<a href='" . $file . "?table_name=" . $_GET['table_name'] . "&sort=" . $name . "&direction=" . $arr_getsort["direction"] . "'<b>" . $name . "</b></a></td>";
                 }
             }
-            echo "<td colspan='2'><b>Optionen</b></td>";
+            if($_GET['table_name'] != 'joined_cars' && $_GET['table_name'] != 'only_available' && $_GET['table_name'] != 'only_rented' && $_GET['table_name'] != 'joined_customers' && $_GET['table_name'] != 'joined_rental') {
+                echo "<td colspan='2'><b>Optionen</b></td>";
+            }
             echo "</thead></tr><tr>";
-            echo "<form action='" . $file . "' method='GET'>";
+            if($_GET['table_name'] != 'joined_cars' && $_GET['table_name'] != 'only_available' && $_GET['table_name'] != 'only_rented' && $_GET['table_name'] != 'joined_customers' && $_GET['table_name'] != 'joined_rental') {
+                echo "<form action='" . $file . "' method='GET'>";
             foreach($column_names as $name){
                 if($name == $this->get_primarykey()) {
                     if($this->is_ai()){
@@ -251,6 +256,7 @@
                 
             }
             echo "<td colspan='2'><input type='submit' name='insert' value='Eintrag hinzufügen' class='button button-2'></td>";
+            }
             if($this->is_ai()) {
                 echo "<input type='hidden' name='ai' value='true'>";
             }
@@ -263,19 +269,7 @@
             if(isset($_GET["sort"]) && isset($_GET["direction"])) {
                 $sort = " ORDER BY " . $_GET["sort"] . " " . $_GET["direction"];
             }
-            if($_GET['table_name'] == 'only_available') {
-                $sql = 'SELECT brand.brand, model.model, rental.`status`,cars.license_plate, cars.construction_year, cars.mileage, cars.hp, cars.ccm, cars.seats, cars.asu, cars.extra, cars.extra2, cars.extra3, cars.`tüv`, cars.pricing_id, cars.insurance_number, fuel.fuelname
-                FROM cars
-                LEFT JOIN model ON cars.model_id=model.id
-                LEFT JOIN brand ON model.brand_id=brand.id
-                LEFT JOIN fuel ON cars.fuel_id=fuel.id
-                LEFT JOIN rental ON cars.id=rental.car_id
-                WHERE rental.`status` IS NOT 1';
-            } elseif($_GET['table_name'] == 'only_rented') {
-                $sql = '';
-            } else {
-                $sql = "SELECT * FROM " . $this->tablename . $sort;
-            }
+            $sql = "SELECT * FROM " . $this->tablename . $sort;
             $res = mysqli_query($this->con, $sql);
             while($record = mysqli_fetch_assoc($res)){
                 echo "<tr>";
@@ -287,8 +281,10 @@
                         echo "<td>" . $record[$name] . "</td>";
                     }
                 }
-                echo "<td><a href='" . $file . "?update=true&key=" . $record[$this->get_primarykey()] . "&table_name=" . $this->tablename . "'>Bearbeiten</a></td>";
-                echo "<td><a href='" . $file . "?delete=true&key=" . $record[$this->get_primarykey()] . "&table_name=" . $this->tablename . "'>Löschen</a></td>";
+                if($_GET['table_name'] != 'joined_cars' && $_GET['table_name'] != 'only_available' && $_GET['table_name'] != 'only_rented' && $_GET['table_name'] != 'joined_customers' && $_GET['table_name'] != 'joined_rental') {
+                    echo "<td><a href='" . $file . "?update=true&key=" . $record[$this->get_primarykey()] . "&table_name=" . $this->tablename . "'>Bearbeiten</a></td>";
+                    echo "<td><a href='" . $file . "?delete=true&key=" . $record[$this->get_primarykey()] . "&table_name=" . $this->tablename . "'>Löschen</a></td>";
+                }
                 echo "</tr>";
             }
             echo "</table>";
