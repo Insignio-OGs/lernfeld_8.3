@@ -324,11 +324,11 @@
                     echo "<input class='inputss' type='" . $this->get_inputtype($name) . "' name='" . $name . "' value='" . $record[$name] . "' readonly>";
                     echo "<label><b> " . $name . "</b></label><br><br>";
                 }
-                echo "<input class='inputss' type='submit' name='deleted' value='LÖSCHEN'>";
+                echo "<input type='submit' name='deleted' value='LÖSCHEN' class='button button-2'>";
                 echo "<input class='inputss' type='hidden' name='key' value='" . $_GET["key"] . "'>";
                 echo "<input class='inputss' type='hidden' name='table_name' value='" . $_GET["table_name"] . "'>";
+                echo "&nbsp;&nbsp;<a href='" . $file . "?table_name=" . $_GET["table_name"] . "'' class='button button-2'>Abbrechen</a>&nbsp;&nbsp;";
                 echo "</form>";
-                echo "&nbsp;&nbsp;<a href='" . $file . "?table_name=" . $_GET["table_name"] . "''>Abbrechen</a>&nbsp;&nbsp;";
             }
 
             if(isset($_GET["insert"]) && $_GET["insert"] != "Einfügen") {

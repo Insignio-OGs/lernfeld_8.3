@@ -54,7 +54,7 @@
             echo '<form action="renting.php" method="get">';
             echo '<input type="hidden" name="action" value="rent">';
             echo '<h4>Kunden auswählen</h4>';
-            echo '<select name="customer" required>';
+            echo '<select name="customer" required class="inputss">';
             echo '<option disabled selected>bitte auswählen</option>';
             $con = mysqli_connect("", "root", "", 'lernfeld_8_3') or die("verbindung fehlgeschlagen");
             $sql = 'SELECT id, first_name, last_name FROM customer';
@@ -64,7 +64,7 @@
             }
             echo '</select><br>';
             echo '<h4>Fahrzeug auswählen</h4>';
-            echo '<select name="car" required>';
+            echo '<select name="car" required class="inputss">';
             echo '<option disabled selected>bitte auswählen</option>';
             $sql = 'SELECT brand.brand, model.model, cars.license_plate, cars.id
                 FROM cars
@@ -79,14 +79,14 @@
             }
             echo '</select><br>';
             echo '<h4>Start Datum</h4>';
-            echo '<input type="date" name="start_date" required>';
+            echo '<input type="date" name="start_date" required class="inputss">';
             echo '<h4>End Datum</h4>';
-            echo '<input type="date" name="end_date" required><br>';
+            echo '<input type="date" name="end_date" required class="inputss"><br>';
             echo '<h4>Start Kilometer</h4>';
-            echo '<input type="number" name="start_km" required min="0"><br>';
+            echo '<input type="number" name="start_km" required min="0" class="inputss"><br>';
             echo '<h4>End Kilometer</h4>';
-            echo '<input type="number" name="end_km" required min="1"><br>';
-            echo '<input type="submit" value="Speichern"></form>';
+            echo '<input type="number" name="end_km" required min="1" class="inputss"><br>';
+            echo '<input type="submit" value="Speichern" class="button button-2" id="buttonXYZ"></form>';
 
             if(isset($_GET['customer']) && isset($_GET['car']) && isset($_GET['start_date']) && isset($_GET['end_date']) && isset($_GET['start_km']) && isset($_GET['end_km'])) {
                 $sql = 'UPDATE cars SET customer_id = ' . $_GET['customer'] . ' WHERE id = ' . $_GET['car'];
