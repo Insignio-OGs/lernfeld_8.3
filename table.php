@@ -13,7 +13,6 @@
             <li><a href="table.php">Tabellen</a></li>
             <li><a href="tableRaw.php">Rohe Datenbank Tabellen</a></li>
             <li><a href="renting.php">Vermietung</a></li>
-            <li><a href="csv.php">CSV</a></li>
         </ul>
     </nav>
 </header>
