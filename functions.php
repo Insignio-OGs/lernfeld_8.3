@@ -11,7 +11,7 @@
             $time_str = "Guten Morgen ";
         }
         elseif($time>=12 && $time<17){
-            $time_str = "Hallo ";
+            $time_str = "Guten Tag ";
         }
         else{
             $time_str = "Guten Abend ";
