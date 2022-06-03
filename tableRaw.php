@@ -6,7 +6,7 @@
 </head>
 <body>
 <header>
-    <a class="logo" href="/"><img src="insignio.png" alt="logo"></a>
+    <a class="logo" href="/"><img src="insignio_weiß.png" alt="logo"></a>
     <nav>
         <ul class="nav__links">
             <li><a href="index.php">Home</a></li>
@@ -29,7 +29,7 @@
         echo "<div>";
         foreach($table_names as $name => $count){
             echo "
-            <button onclick=\"location.href='tableRaw.php?table_name=".$name."'\" type='button' class='button button-2'> $name </button>
+            <button onclick=\"location.href='tableRaw.php?table_name=".$name."'\" type='button' class='button button-2' id='buttonM'> $name </button>
             ";
         }
         echo "</div>";

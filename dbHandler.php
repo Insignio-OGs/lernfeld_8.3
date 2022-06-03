@@ -220,7 +220,6 @@
 
             echo "<style>
                     table, tr, td {
-                        border: 1px solid black;
                     }
                 </style>";
             echo "<table class='content-table'><thead><tr>";
@@ -236,7 +235,7 @@
                 }
             }
             if($_GET['table_name'] != 'joined_cars' && $_GET['table_name'] != 'only_available' && $_GET['table_name'] != 'only_rented' && $_GET['table_name'] != 'joined_customers' && $_GET['table_name'] != 'joined_rental') {
-                echo "<td colspan='2'><b>Optionen</b></td>";
+                echo "<td class='max' colspan='2'><b>Optionen</b></td>";
             }
             echo "</thead></tr><tr>";
             if($_GET['table_name'] != 'joined_cars' && $_GET['table_name'] != 'only_available' && $_GET['table_name'] != 'only_rented' && $_GET['table_name'] != 'joined_customers' && $_GET['table_name'] != 'joined_rental') {
@@ -298,19 +297,20 @@
                 echo "<form action='" . $file . "' method=''GET>";
                 foreach($column_names as $name) {
                     if($name == "password") {
-                        echo "<input type='" . $this->get_inputtype($name) . "' name='" . $name . "' value'' placeholder='*********'>";
+                        echo "<input class='inputss' type='" . $this->get_inputtype($name) . "' name='" . $name . "' value'' placeholder='*********'>";
                         echo "<label><b> " . $name . "</b></label><br><br>";
                     }
                     else {
-                        echo "<input type='" . $this->get_inputtype($name) . "' name='" . $name . "' value='" . $record[$name] . "'>";
+                        echo "<input class='inputss' type='" . $this->get_inputtype($name) . "' name='" . $name . "' value='" . $record[$name] . "'>";
                         echo "<label><b> " . $name . "</b></label><br><br>";
                     }
                 }
-                echo "<input type='submit' name='updated' value='Speichern'>";
-                echo "<input type='hidden' name='key' value='" . $_GET["key"] . "'>";
-                echo "<input type='hidden' name='table_name' value='" . $_GET["table_name"] . "'>";
+                echo "<input type='submit' name='updated' value='Speichern' class='button button-2'>";
+                echo "<input class='inputss' type='hidden' name='key' value='" . $_GET["key"] . "'>";
+                echo "<input class='inputss' type='hidden' name='table_name' value='" . $_GET["table_name"] . "'>";
+                echo "&nbsp;&nbsp;<a href='" . $file . "?table_name=" . $_GET["table_name"] . "'' class='button button-2'>Abbrechen</a>&nbsp;&nbsp;";
                 echo "</form>";
-                echo "&nbsp;&nbsp;<a href='" . $file . "?table_name=" . $_GET["table_name"] . "''>Abbrechen</a>&nbsp;&nbsp;";
+                echo "</div>";
             }
             
             if(isset($_GET["delete"])) {
@@ -321,12 +321,12 @@
                 echo "<h2>Datensatz löschen</h2>";
                 echo "<form action='" . $file . "' method=''GET>";
                 foreach($column_names as $name) {
-                    echo "<input type='" . $this->get_inputtype($name) . "' name='" . $name . "' value='" . $record[$name] . "' readonly>";
+                    echo "<input class='inputss' type='" . $this->get_inputtype($name) . "' name='" . $name . "' value='" . $record[$name] . "' readonly>";
                     echo "<label><b> " . $name . "</b></label><br><br>";
                 }
-                echo "<input type='submit' name='deleted' value='LÖSCHEN'>";
-                echo "<input type='hidden' name='key' value='" . $_GET["key"] . "'>";
-                echo "<input type='hidden' name='table_name' value='" . $_GET["table_name"] . "'>";
+                echo "<input class='inputss' type='submit' name='deleted' value='LÖSCHEN'>";
+                echo "<input class='inputss' type='hidden' name='key' value='" . $_GET["key"] . "'>";
+                echo "<input class='inputss' type='hidden' name='table_name' value='" . $_GET["table_name"] . "'>";
                 echo "</form>";
                 echo "&nbsp;&nbsp;<a href='" . $file . "?table_name=" . $_GET["table_name"] . "''>Abbrechen</a>&nbsp;&nbsp;";
             }
@@ -337,17 +337,17 @@
                 echo "<form action='" . $file . "' method=''GET>";
                 foreach($column_names as $name) {
                     if($_GET["ai"] && $name == $this->get_primarykey()) {
-                        echo "<input type='" . $this->get_inputtype($name) . "' name='" . $name . "' value='' readonly placeholder='auto_increment'>";
+                        echo "<input class='inputss' type='" . $this->get_inputtype($name) . "' name='" . $name . "' value='' readonly placeholder='auto_increment'>";
                     }
                     else {
-                        echo "<input type='" . $this->get_inputtype($name) . "' name='" . $name . "' value='" . $_GET[$name] . "' readonly>";
+                        echo "<input class='inputss' type='" . $this->get_inputtype($name) . "' name='" . $name . "' value='" . $_GET[$name] . "' readonly>";
                     }
                     
                     echo "<label><b> " . $name . "</b></label><br><br>";
                 }
-                echo "<input type='submit' name='insert' value='Einfügen'>";
-                echo "<input type='hidden' name='table_name' value='" . $_GET["table_name"] . "'>";
-                echo "<input type='hidden' name='ai' value='" . $_GET["ai"] . "'>";
+                echo "<input class='inputss' type='submit' name='insert' value='Einfügen'>";
+                echo "<input class='inputss' type='hidden' name='table_name' value='" . $_GET["table_name"] . "'>";
+                echo "<input class='inputss' type='hidden' name='ai' value='" . $_GET["ai"] . "'>";
                 echo "</form>";
                 echo "&nbsp;&nbsp;<a href='" . $file . "?table_name=" . $_GET["table_name"] . "''>Abbrechen</a>&nbsp;&nbsp;";
             }
