@@ -26,7 +26,7 @@ echo "<div><h2> ".get_time_str()." </h2></div>";
 
 ?>
 
-<div>
+<div style = "    margin-left: 15px; margin-top: 50px;">
     <h3>Kurze Anleitung:<br><br></h3>
 
     <p>Auf der Seite <b>"Tabellen"</b> findet man eine ordentliche Ansicht der Daten. <br> 
