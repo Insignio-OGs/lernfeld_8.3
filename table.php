@@ -6,7 +6,7 @@
 </head>
 <body>
 <header>
-    <a class="logo" href="/"><img src="insignio.png" alt="logo"></a>
+    <a class="logo" href="/"><img src="insignio weiß.png" alt="logo"></a>
     <nav>
         <ul class="nav__links">
             <li><a href="index.php">Home</a></li>
@@ -28,17 +28,15 @@
     
         echo "
             <div>
-            <button onclick=\"location.href='table.php?table_name=joined_cars&sort=brand&direction=DESC'\" type='button' class='button button-2'> Fahrzeuge </button>
-            <button onclick=\"location.href='table.php?table_name=joined_customers&sort=title&direction=DESC'\" type='button' class='button button-2'> Kunden </button>
-            <button onclick=\"location.href='table.php?table_name=joined_rental&sort=status&direction=DESC'\" type='button' class='button button-2'> Verleih </button>
-            </div>";
+            <button onclick=\"location.href='table.php?table_name=joined_cars&sort=brand&direction=DESC'\" type='button' class='button button-2' id='buttonM'> Fahrzeuge </button>
+            <button onclick=\"location.href='table.php?table_name=joined_customers&sort=title&direction=DESC'\" type='button' class='button button-2' id='buttonM'> Kunden </button>
+            <button onclick=\"location.href='table.php?table_name=joined_rental&sort=status&direction=DESC'\" type='button' class='button button-2' id='buttonM'> Verleih </button>";
 
         if(isset($_GET['table_name'])){
             if($_GET['table_name'] == "joined_cars" || $_GET['table_name'] == 'only_available' || $_GET['table_name'] == 'only_rented') {
-                echo 
-                "<div>
-                <button onclick=\"location.href='table.php?table_name=only_available&sort=brand&direction=DESC'\" type='button' class='button button-2'> Nur Verfügbare Fahrzeuge </button>
-                <button onclick=\"location.href='table.php?table_name=only_rented&sort=brand&direction=DESC'\" type='button' class='button button-2'> Nur Ausgeliehene Fahrzeuge </button>
+                echo "
+                <button onclick=\"location.href='table.php?table_name=only_available&sort=brand&direction=DESC'\" type='button' class='button button-2' id='buttonM'> Nur Verfügbare Fahrzeuge </button>
+                <button onclick=\"location.href='table.php?table_name=only_rented&sort=brand&direction=DESC'\" type='button' class='button button-2' id='buttonM'> Nur Ausgeliehene Fahrzeuge </button>
                 </div>";
             }
         }    
