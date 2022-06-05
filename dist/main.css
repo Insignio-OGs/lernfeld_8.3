@@ -10,7 +10,7 @@ html {
 }
 
 .content-table thead tr {
-  background-color: #d45215;
+  background-color: #fc4503;
   color: #ffffff;
   text-align: left;
   font-weight: bold;
@@ -34,12 +34,12 @@ html {
 }
 
 .content-table tbody tr:last-of-type {
-  border-bottom: 2px solid #d45215;
+  border-bottom: 2px solid #fc4503;
 }
 
 .content-table tbody tr.active-row {
   font-weight: bold;
-  color: #d45215;
+  color: #fc4503;
 }
 
 hr {
@@ -197,7 +197,7 @@ tr:hover {
 }
 
 .button-2:hover {
-  color: #FFF;
+  color: #ffffff;
   background-position: -100%;
 }
 

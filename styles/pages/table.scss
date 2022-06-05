@@ -1,7 +1,7 @@
 @use "../abstracts/" as *;
 
 .content-table thead tr {
-    background-color: $color-primary;
+    background-color: $color-orange;
     color: $color-secondary;
     text-align: left;
     font-weight: bold;
@@ -25,12 +25,12 @@
     }
   
     .content-table tbody tr:last-of-type {
-    border-bottom: 2px solid $color-primary;
+    border-bottom: 2px solid $color-orange;
     }
   
     .content-table tbody tr.active-row {
     font-weight: bold;
-    color: $color-primary;
+    color: $color-orange;
     }
 
     hr {

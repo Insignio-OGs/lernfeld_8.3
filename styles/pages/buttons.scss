@@ -1,3 +1,5 @@
+@use "../abstracts/" as *;
+
 * {
     margin: 0;
     padding: 0;
@@ -20,7 +22,7 @@
     outline: none;
     padding: 5px 10px;
     border-radius: 8px;
-    color: #212121;
+    color: $color-grey;
     font-size: 15px;
     font-weight: 600;
     margin-left: 15px;
@@ -29,15 +31,15 @@
   }
   
   .button-2 {
-    color: #fc4503;
-    border: 3px solid #fc4503;
-    background-image: linear-gradient(to right, transparent 50%, #fc4503 50%);
+    color: $color-orange;
+    border: 3px solid $color-orange;
+    background-image: linear-gradient(to right, transparent 50%, $color-orange 50%);
     background-size: 200%;
     background-position: 0%;
   }
   
   .button-2:hover {
-    color: #FFF;
+    color: $color-secondary;
     background-position: -100%;
   }
   
