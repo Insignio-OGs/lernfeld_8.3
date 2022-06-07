@@ -188,6 +188,7 @@
                 if(isset($_GET["updated"])) {
                     // SQL String zusammen bauen
                     $sql = "UPDATE " . $this->tablename . " SET ";
+                    $primary_key = $this->get_primarykey();
                     foreach ($column_names as $name) {
                         if($name == "password") {
                             $sql .= $name . "='" . password_hash($_GET[$name], PASSWORD_DEFAULT) . "', ";
@@ -205,7 +206,7 @@
                     // Zuerst das "," im Tmp String mit "" austauschen
                     // dann den alten Tmp String mit dem Komma gegen den ohne Komma austauschen
                     $sql = str_replace($temp_string, str_replace(",", "", $temp_string), $sql);
-                    echo $sql;
+                    //echo $sql;
                     // SQL result
                     if($res = mysqli_query($this->con, $sql)) {
                         echo "<script>alert('Eintrag wurde geändert')</script>";
@@ -290,6 +291,7 @@
 
             if(isset($_GET["update"])) {
                 $sql = "SELECT * FROM " . $this->tablename . " WHERE " . $this->get_primarykey() . "='" . $_GET["key"] . "'";
+                echo $sql;
                 $res = mysqli_query($this->con, $sql);
                 $record = mysqli_fetch_assoc($res);
                 echo "<hr>";
