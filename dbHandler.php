@@ -333,7 +333,7 @@
                 echo "</form>";
             }
 
-            if(isset($_GET["insert"]) && $_GET["insert"] != "Einfügen") {
+            /*if(isset($_GET["insert"]) && $_GET["insert"] != "Einfügen") {
                 echo "<hr>";
                 echo "<h2>Eingegebene Werte:</h2>";
                 echo "<form action='" . $file . "' method=''GET>";
@@ -352,7 +352,7 @@
                 echo "<input class='inputss' type='hidden' name='ai' value='" . $_GET["ai"] . "'>";
                 echo "</form>";
                 echo "&nbsp;&nbsp;<a href='" . $file . "?table_name=" . $_GET["table_name"] . "''>Abbrechen</a>&nbsp;&nbsp;";
-            }
+            }*/
         }
 
         /**
