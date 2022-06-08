@@ -35,7 +35,7 @@
             $sql = 'SELECT customer.id, customer.first_name, customer.last_name, rental.customer_id FROM customer LEFT JOIN rental ON customer.id = rental.customer_id WHERE rental.status = 1 GROUP BY rental.customer_id HAVING COUNT(rental.customer_id) > 0 ';
             $res = mysqli_query($con, $sql);
             while($record = mysqli_fetch_assoc($res)){
-                $sql = 'SELECT brand.brand, model.model, cars.license_plate, cars.id, rental.start_date, rental.end_date
+                $sql = 'SELECT brand.brand, model.model, cars.license_plate, rental.id, rental.start_date, rental.end_date
                 FROM cars
                 LEFT JOIN model ON cars.model_id=model.id
                 LEFT JOIN brand ON model.brand_id=brand.id
