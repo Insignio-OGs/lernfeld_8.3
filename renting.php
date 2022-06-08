@@ -24,7 +24,7 @@
     ";
     if(isset($_GET['return'])) {
         $con = mysqli_connect("", "root", "", 'lernfeld_8_3') or die("verbindung fehlgeschlagen");
-        $sql = 'UPDATE rental SET status = 0 WHERE customer_id = ' . $_GET['return'];
+        $sql = 'UPDATE rental SET status = 0 WHERE id = ' . $_GET['return'];
         $res = mysqli_query($con, $sql);
         echo "<script>alert('Fahrzeug wurde zurückgegeben.');</script>";
         echo "<script>window.location.href = 'renting.php?action=return'</script>";
