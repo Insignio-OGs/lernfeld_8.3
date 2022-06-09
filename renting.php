@@ -40,7 +40,7 @@
                 LEFT JOIN model ON cars.model_id=model.id
                 LEFT JOIN brand ON model.brand_id=brand.id
                 LEFT JOIN rental ON cars.id=rental.car_id
-                WHERE rental.customer_id = ' . $record['id'];
+                WHERE rental.customer_id = ' . $record['id'] . ' AND rental.status = 1';
                 $res2 = mysqli_query($con, $sql);
                 echo '<h4>' . $record['first_name'] . ' ' . $record['last_name'] . '</h4><br>';
                 echo '<table>
@@ -70,8 +70,7 @@
                 FROM cars
                 LEFT JOIN model ON cars.model_id=model.id
                 LEFT JOIN brand ON model.brand_id=brand.id
-                LEFT JOIN rental ON rental.car_id=cars.id
-                WHERE rental.status = 0 OR rental.status IS null';
+                WHERE cars.id NOT IN (SELECT car_id FROM rental WHERE status = 1)';
             $res = mysqli_query($con, $sql);
             while($record = mysqli_fetch_assoc($res)){
 
