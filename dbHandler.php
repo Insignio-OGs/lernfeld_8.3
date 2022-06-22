@@ -95,7 +95,7 @@
          */
         function get_value($id, $column_name, $primary_key) {
             $sql = "SELECT " . $column_name . " FROM " . $this->tablename . " WHERE " . $primary_key . "=" . "'" . $id . "'";
-            echo $sql;
+            //echo $sql;
             $res = mysqli_query($this->con, $sql);
             while($record = mysqli_fetch_assoc($res)) {
                 return $record[$column_name];
@@ -173,7 +173,7 @@
                     else {
                         // SQL String zusammen bauen
                         $sql = "DELETE FROM " . $this->tablename . " WHERE " . $this->get_primarykey() . "=" . $_GET["key"];
-                        echo $sql;
+                        //echo $sql;
                         // SQL result
                         if($res = mysqli_query($this->con, $sql)) {
                             echo "<script>alert('Datensatz wurde gelöscht!');</script>";
@@ -291,7 +291,7 @@
 
             if(isset($_GET["update"])) {
                 $sql = "SELECT * FROM " . $this->tablename . " WHERE " . $this->get_primarykey() . "='" . $_GET["key"] . "'";
-                echo $sql;
+                //echo $sql;
                 $res = mysqli_query($this->con, $sql);
                 $record = mysqli_fetch_assoc($res);
                 echo "<hr>";
